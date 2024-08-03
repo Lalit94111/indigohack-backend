@@ -2,6 +2,7 @@ const Flight = require('../Models/Flight');
 const NotificationPreference = require('../Models/NotificationPreference')
 const Passenger = require('../Models/Passenger')
 const Notification = require('../Models/Notification')
+const {Sequelize} = require('sequelize')
 // const {userSocketMap} = require('../index')
 
 const {publishToQueue,connectToQueue} = require('../Utils/queue')
@@ -40,6 +41,28 @@ exports.getAllFlights = async (req, res,next) => {
   } catch (error) {
     if(!error.statusCode) error.statusCode = 500;
     next(error)
+  }
+};
+
+exports.getFlightsByPrefix = async (req, res, next) => {
+  try {
+    // Get the prefix from query parameters
+    const prefix = req.query.prefix || ''; // Default to empty string if no prefix is provided
+
+    // Fetch flights with flight codes starting with the prefix
+    const flights = await Flight.findAll({
+      where: {
+        flight_id: {
+          [Sequelize.Op.like]: `${prefix}%`
+        }
+      }
+    });
+
+    // Respond with the fetched flights
+    res.status(200).json(flights);
+  } catch (error) {
+    if (!error.statusCode) error.statusCode = 500;
+    next(error);
   }
 };
 

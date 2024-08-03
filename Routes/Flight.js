@@ -9,6 +9,8 @@ module.exports = (io) =>{
 
     router.get('/', authMiddleware.verifyToken, flightController.getAllFlights);
 
+    router.get('/search/flight', authMiddleware.verifyToken, flightController.getFlightsByPrefix);
+
     router.get('/:flight_id', authMiddleware.verifyToken, flightController.getFlightById);
 
     router.put('/:flight_id', authMiddleware.verifyToken, (req,res,next)=>{

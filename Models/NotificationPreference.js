@@ -10,6 +10,7 @@ const NotificationPreference = sequelize.define(
       type: DataTypes.INTEGER,
       primaryKey: true,
       autoIncrement: true,
+      comment: 'Primary Key',
     },
     user_id: {
       type: DataTypes.INTEGER,
@@ -18,6 +19,7 @@ const NotificationPreference = sequelize.define(
         key: "user_id",
       },
       allowNull: false,
+      comment: 'User ID',
     },
     flight_id: {
       type: DataTypes.STRING,
@@ -26,19 +28,23 @@ const NotificationPreference = sequelize.define(
         key: "flight_id",
       },
       allowNull: false,
+      comment: 'Flight ID',
     },
     notificationMode: {
       type: DataTypes.INTEGER,
       allowNull: false,
+      comment: 'Notification Mode',
     },
     isDeleted: {
       type: DataTypes.BOOLEAN,
       defaultValue: false,
+      comment: 'Is Deleted',
     },
   },
   {
     tableName: "notification_preferences",
     timestamps: true,
+    comment: 'Notification Preferences Table',
   }
 );
 

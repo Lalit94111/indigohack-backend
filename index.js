@@ -15,7 +15,7 @@ app.use(cors({
 }));
 app.use(express.json());
 
-const Port = process.env.PORT || 8000;
+const Port = process.env.PORT || 8080;
 const server = http.createServer(app);
 const io = socketIO(server, {
   cors: {
